@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, Georama } from "next/font/google"
 import "./globals.css"
 import type { ReactNode } from "react"
 import { Navbar } from "@/components/navbar"
@@ -11,6 +11,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+})
+
+const georama = Georama({
+  variable: "--font-georama",
   subsets: ["latin"],
 })
 
@@ -27,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} h-dvh w-dvw overflow-hidden bg-[url(/images/wallpaper.png)] bg-center bg-cover bg-no-repeat antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${georama.variable} h-dvh w-dvw overflow-hidden bg-[url(/images/wallpaper.jpg)] bg-center bg-cover bg-no-repeat antialiased`}
       >
         <Navbar />
         {children}
