@@ -1,4 +1,13 @@
-export const dockApps = [
+import type { Windows } from "@/store/window"
+
+type Dock = {
+  id: keyof Windows
+  name: string
+  icon: string
+  canOpen: boolean
+}
+
+export const dockApps: Dock[] = [
   {
     id: "finder",
     name: "Portfolio",
@@ -48,4 +57,5 @@ export const WINDOW_CONFIG = {
   terminal: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   textFile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   imgFile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+  trash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 }
