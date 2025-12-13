@@ -6,8 +6,10 @@ import Image from "next/image"
 import { useRef } from "react"
 import { Tooltip } from "react-tooltip"
 import { dockApps } from "@/constants"
+import useWindowStore, { Windows } from "@/store/window"
 
 export function Dock() {
+  const { openWindow, closeWindow, windows } = useWindowStore()
   const dockRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
@@ -62,7 +64,19 @@ export function Dock() {
     }
   }, [])
 
-  const toggleApp = (app: { id: string; canOpen: boolean }) => {}
+  const toggleApp = (app: { id: keyof Windows; canOpen: boolean }) => {
+    if (!app.canOpen) {
+      return
+    }
+
+    const window = windows[app.id]
+
+    if (window.isOpen) {
+      closeWindow(app.id)
+    } else {
+      openWindow(app.id)
+    }
+  }
 
   return (
     <section className="-translate-x-1/2 absolute bottom-5 left-1/2 z-50 select-none max-sm:hidden">
