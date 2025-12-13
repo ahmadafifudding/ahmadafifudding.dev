@@ -2,8 +2,10 @@ import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { INITIAL_Z_INDEX, WINDOW_CONFIG } from "@/constants"
 
+export type Windows = typeof WINDOW_CONFIG
+
 type WindowState = {
-  windows: typeof WINDOW_CONFIG
+  windows: Windows
   nextZIndex: number
 
   openWindow: (windowKey: keyof typeof WINDOW_CONFIG, data?: any) => void
@@ -19,6 +21,11 @@ const useWindowStore = create<WindowState>()(
     openWindow: (windowKey, data = null) =>
       set((state) => {
         const win = state.windows[windowKey]
+
+        if (!win) {
+          return
+        }
+
         win.isOpen = true
         win.zIndex = state.nextZIndex
         win.data = data ?? win.data
@@ -28,6 +35,11 @@ const useWindowStore = create<WindowState>()(
     closeWindow: (windowKey) =>
       set((state) => {
         const win = state.windows[windowKey]
+
+        if (!win) {
+          return
+        }
+
         win.isOpen = false
         win.zIndex = INITIAL_Z_INDEX
         win.data = null
@@ -40,3 +52,5 @@ const useWindowStore = create<WindowState>()(
       }),
   })),
 )
+
+export default useWindowStore
