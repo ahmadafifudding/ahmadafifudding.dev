@@ -22,14 +22,14 @@ const setupTextHover = (container: HTMLElement | null, type: "subtitle" | "title
   const { min, max, default: base } = FONT_WEIGHTS[type]
 
   const animateLetters = (letter: HTMLSpanElement, weight: number, duration = 0.25) => {
-    return gsap.to(letter, {
+    gsap.to(letter, {
       duration,
       ease: "power2.out",
       fontVariationSettings: `'wght' ${weight}`,
     })
   }
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent) => {
     const { left } = container.getBoundingClientRect()
     const mouseX = e.clientX - left
 
@@ -38,11 +38,15 @@ const setupTextHover = (container: HTMLElement | null, type: "subtitle" | "title
       const distance = Math.abs(mouseX - (l - left + w / 2))
       const intensity = Math.exp(-(distance ** 2) / 20000)
 
-      animateLetters(letter, min + (max - min) * intensity)
+      void animateLetters(letter, min + (max - min) * intensity)
     })
   }
 
-  const handleMouseLeave = () => letters.forEach((letter) => animateLetters(letter, base, 0.3))
+  const handleMouseLeave = () => {
+    letters.forEach((letter) => {
+      animateLetters(letter, base, 0.3)
+    })
+  }
 
   container.addEventListener("mousemove", handleMouseMove)
   container.addEventListener("mouseleave", handleMouseLeave)
