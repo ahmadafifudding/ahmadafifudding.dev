@@ -1,11 +1,5 @@
-import Image from "next/image";
+import { Welcome } from "@/components/welcome"
 
 export default function Home() {
-  return (
-    <div>
-        <h1 className="text-3xl font-bold underline">
-            Welcome to my world
-        </h1>
-    </div>
-  );
+  return <Welcome />
 }
