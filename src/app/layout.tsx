@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono, Georama } from "next/font/google"
 import "./globals.css"
 import type { ReactNode } from "react"
+import { Dock } from "@/components/dock"
 import { Navbar } from "@/components/navbar"
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Dock />
       </body>
     </html>
   )
